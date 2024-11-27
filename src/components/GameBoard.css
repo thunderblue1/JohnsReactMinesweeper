@@ -20,6 +20,14 @@
   .cell:hover {
     background-color: #a3a3a3;
   }
+
+  .cell:active {
+    background-color: #e4e4e4;
+  }
+
+  .cell.active {
+    background-color: #e4e4e4;
+  }
   
   .cell[data-exploded="1"] {
     background-image: url('./mine.svg'); /* Add your mine image */
