@@ -1,3 +1,43 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Outer Circle (Mine Body) -->
+  <circle cx="100" cy="100" r="50" fill="black" />
+
+  <!-- Spikes -->
+  <line x1="100" y1="25" x2="100" y2="0" stroke="#333" stroke-width="7" />
+  <line x1="100" y1="175" x2="100" y2="200" stroke="#333" stroke-width="7" />
+  <line x1="25" y1="100" x2="0" y2="100" stroke="#333" stroke-width="7" />
+  <line x1="175" y1="100" x2="200" y2="100" stroke="#333" stroke-width="7" />
+  <line x1="35" y1="35" x2="15" y2="15" stroke="#333" stroke-width="7" />
+  <line x1="165" y1="35" x2="185" y2="15" stroke="#333" stroke-width="7" />
+  <line x1="35" y1="165" x2="15" y2="185" stroke="#333" stroke-width="7" />
+  <line x1="165" y1="165" x2="185" y2="185" stroke="#333" stroke-width="7" />
+
+  <!-- Central Features -->
+  <circle cx="100" cy="100" r="45" fill="black" stroke="black" stroke-width="2" />
+  <line x1="100" y1="50" x2="100" y2="30" stroke="black" stroke-width="2" />
+  <line x1="100" y1="150" x2="100" y2="170" stroke="black" stroke-width="2" />
+  <line x1="50" y1="100" x2="30" y2="100" stroke="black" stroke-width="2" />
+  <line x1="150" y1="100" x2="170" y2="100" stroke="black" stroke-width="2" />
+  <line x1="70" y1="70" x2="55" y2="55" stroke="black" stroke-width="2" />
+  <line x1="130" y1="70" x2="145" y2="55" stroke="black" stroke-width="2" />
+  <line x1="70" y1="130" x2="55" y2="145" stroke="black" stroke-width="2" />
+  <line x1="130" y1="130" x2="145" y2="145" stroke="black" stroke-width="2" />
+
+  <!-- Squiggly Fuse -->
+  <path
+    d="M100 50 C95 30, 110 20, 105 10 C100 0, 90 5, 95 20"
+    fill="none"
+    stroke="black"
+    stroke-width="6"
+  />
+  
+  <!-- Lit Fuse End -->
+  <circle cx="95" cy="20" r="8" fill="orange" />
+</svg>
+
+<!-- 
+
 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="10" fill="black" />
     <path d="M12 2v2" />
@@ -9,3 +49,6 @@
     <path d="M4.22 19.78l1.42-1.42" />
     <path d="M18.36 5.64l1.42-1.42" />
 </svg>
+
+-->
+

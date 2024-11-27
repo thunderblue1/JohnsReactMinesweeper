@@ -1,9 +1,11 @@
 import { GameBoard } from './components/GameBoard'
 import './App.css'
 import { useReducer, useState } from 'react'
+import NavBar from './components/NavBar'
+
+export type GameLevel = "EASY"|"MODERATE"|"HARD"
 
 function App() {
-  type GameLevel = "EASY"|"MODERATE"|"HARD"
 
   const [gameLevel, setGameLevel] = useState<GameLevel>("EASY")
   const [gameId, dispatch] = useReducer(reducer, "")
@@ -22,7 +24,6 @@ function App() {
     }
     // console.log(`Ending Game ID:${gameId}`)
     if(!crypto.randomUUID) {
-      console.log("crypto.randomUUID() is not supported.")
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = (Math.random() * 16) | 0,
             v = c === 'x' ? r : (r & 0x3) | 0x8;
@@ -34,12 +35,11 @@ function App() {
 
   return (
     <>
+      <NavBar dispatch={dispatch}/>
       <div className='flex'>
         <h1>John Keen Introduces</h1>
         <h1>React Minesweeper</h1>
-        <button onClick={()=>{dispatch("EASY")}}>New EASY Game</button><br />
-        <button onClick={()=>{dispatch("MODERATE")}}>New MODERATE Game</button><br />
-        <button onClick={()=>{dispatch("HARD")}}>New HARD Game</button><br />
+
 
         {gameLevel==="EASY"&&<GameBoard key={`EASY-${gameId}`} rows={10} cols={10} difficulty={5}/>}
         {gameLevel==="MODERATE"&&<GameBoard key={`MODERATE-${gameId}`} rows={15} cols={15} difficulty={10}/>}

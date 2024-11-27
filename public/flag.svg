@@ -8,8 +8,46 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+>
+    <!-- Flagpole -->
+    <line x1="5" y1="4" x2="5" y2="20" stroke="#555" stroke-width="3" />
+
+    <!-- Flag Background -->
+    <rect x="5" y="4" width="15" height="10" fill="url(#blueGradient)" rx="2" stroke-width="0.5" stroke="#222" />
+
+    <!-- Chevron -->
+    <path d="M5 4h15l-4 4l4 4H5" fill="none" stroke="#222" stroke-width="1" />
+
+    <!-- Decorative Stripes -->
+    <line x1="7" y1="5.5" x2="17" y2="5.5" stroke="white" stroke-width="1" />
+    <line x1="7" y1="8" x2="15" y2="8" stroke="white" stroke-width="1" />
+    <line x1="7" y1="10.5" x2="17" y2="10.5" stroke="white" stroke-width="1" />
+
+    <!-- Gradient Definition -->
+    <defs>
+        <linearGradient id="blueGradient" x1="5" y1="4" x2="20" y2="14" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1E90FF" />
+            <stop offset="100%" stop-color="#0000FF" />
+        </linearGradient>
+    </defs>
+</svg>
+
+<!--
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100"
+    height="100"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="black"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
     >
     <rect x="2" y="4" width="15" height="10" fill="blue" />
     <path d="M2 4h15l-4 4l4 4H2" fill="none" stroke="black" />
     <line x1="2" y1="4" x2="2" y2="20" stroke="black" />
 </svg>
+
+-->

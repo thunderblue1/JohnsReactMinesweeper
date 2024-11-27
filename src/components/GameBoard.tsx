@@ -137,7 +137,7 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
                 }
                 return false;
               })[0];
-              if (!toVisit.isShown) {
+              if (!toVisit.isShown&&!toVisit.isFlagged) {
                 visitCells(`${visited.row + i},${visited.col + j}`);
               }
             }
@@ -237,7 +237,7 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   function myMouseUp(e:React.MouseEvent) {
     if(e.button===0) {
       leftRef.current = false
-    } else if(bothRef.current===true) {
+    } else if(bothRef.current===true&&!gameLost&&!gameWon) {
       const myTarget = e.target as HTMLElement
       const id = myTarget.dataset.id!
       if(id===mouseDownIdRef.current) {
@@ -253,15 +253,16 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
       }
       bothRef.current = false;
       console.log("DONE")
-      neighborsIdRef.current.forEach(neigh=>document.getElementById(neigh)?.classList.remove("active"))
     }
+    neighborsIdRef.current.forEach(neigh=>document.getElementById(neigh)?.classList.remove("active"))
   }
 
   
   return (
     <>
-      {gameWon ? <h1 style={{ backgroundColor: "green" }}>You Win!</h1> : null}
-      {gameLost ? <h1 style={{ backgroundColor: "red" }}>You Lost</h1> : null}
+      {!gameLost&&!gameWon&&<h1 className="game-message play">Game On</h1>}
+      {gameWon ? <h1 className="game-message win">You Win!</h1> : null}
+      {gameLost ? <h1 className="game-message lose">You Lost</h1> : null}
       <div
         id="board"
         className="minesweeper"
