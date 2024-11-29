@@ -7,7 +7,16 @@
 .cell {
   width: 40px;
   height: 40px;
-  background-color: #b3b3b3;
+
+  background: rgb(212, 175, 55);
+  background: linear-gradient(
+    0deg,
+    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
+    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
+    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
+    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
+  );
+
   border: 1px solid #999;
   display: flex;
   align-items: center;
@@ -18,34 +27,70 @@
 }
 
 .cell:hover {
-  background-color: #a3a3a3;
+  background: rgb(204, 153, 51);
+  background: linear-gradient(
+    0deg,
+    rgba(204, 153, 51, 1) 0%,   /* Deep Gold */
+    rgba(212, 175, 55, 1) 35%,  /* Metallic Gold */
+    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
+    rgba(204, 153, 51, 1) 100%  /* Deep Gold */
+  );
 }
 
 .cell:active {
-  background-color: #e4e4e4;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
+    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
+    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
+    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
+  );
 }
 
-.cell.active {
-  background-color: #e4e4e4;
+.active {
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
+    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
+    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
+    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
+  );
 }
 
 .cell[data-exploded="1"] {
-  background-image: url('./mine.svg'); /* Add your mine image */
-  background-size: cover;
-
-  background-color: rgb(225,0,0);
-
+  background: red;
+  background: 
+    url('./mine.svg') center/100% no-repeat,
+    radial-gradient(circle, rgba(255,0,0,1) 29%, rgba(153,3,3,1) 68%, rgba(255,0,0,1) 79%, rgba(237,74,74,1) 96%);
 }
 
 .cell[data-revealed="1"] {
-  background-color: lightgray;
+  background: rgb(227, 227, 227);
+  background: linear-gradient(
+    0deg,
+    rgba(245, 245, 245, 1) 0%,   /* Bright highlight */
+    rgba(200, 200, 200, 1) 15%,  /* Slightly darker */
+    rgba(255, 255, 255, 1) 30%,  /* Reflective white streak */
+    rgba(190, 190, 190, 1) 50%,  /* Darker silver */
+    rgba(245, 245, 245, 1) 70%,  /* Bright again */
+    rgba(227, 227, 227, 1) 100%  /* Base silver */
+  );
+
+
   color: blue;
 }
 
 .cell[data-flag="1"] {
-  background-image: url('./flag.svg'); /* Add your flag image */
-  background-size: cover;
-  background-color: #b3b3b3;
+  background: rgb(212, 175, 55);
+  background: 
+    url('./flag.svg') center/100% no-repeat,
+    linear-gradient(
+      0deg,
+      rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
+      rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
+      rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
+      rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
+    );
 }
 
 .game-message {
@@ -61,7 +106,7 @@
 
 .lose {
   color:white;
-  background: rgb(255,0,0);
+  background: rgb(150,100,255);
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(221,0,0,1) 70%, rgba(255,0,0,1) 100%);
 }
 
