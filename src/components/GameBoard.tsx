@@ -140,7 +140,7 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
       <div
         id="board"
         className="minesweeper"
-        style={{ gridTemplateColumns: `repeat(${cols}, 40px)` }}
+        style={{ gridTemplateColumns: `repeat(${cols}, 25px)` }}
         onMouseUp={(e:React.MouseEvent)=>{e.preventDefault();myMouseUp(e)}}
         onContextMenu={(e:React.MouseEvent)=>{e.preventDefault()}}
       >

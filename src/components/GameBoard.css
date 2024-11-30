@@ -1,21 +1,15 @@
 .minesweeper {
   display: grid;
   margin: auto;
-  gap: 5px;
+  gap: 0px;
 }
   
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
 
-  background: rgb(212, 175, 55);
-  background: linear-gradient(
-    0deg,
-    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
-    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
-    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
-    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
-  );
+  background: #c39463;
+  background: linear-gradient(0deg, #96745d, #ad8460, #c39463, #d7a766, #e9ba6c, #f7cf7c, #fde6a5, #fffbe9);
 
   border: 1px solid #999;
   display: flex;
@@ -27,34 +21,18 @@
 }
 
 .cell:hover {
-  background: rgb(204, 153, 51);
-  background: linear-gradient(
-    0deg,
-    rgba(204, 153, 51, 1) 0%,   /* Deep Gold */
-    rgba(212, 175, 55, 1) 35%,  /* Metallic Gold */
-    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
-    rgba(204, 153, 51, 1) 100%  /* Deep Gold */
-  );
+  background: #e9ba6c;
+  background: linear-gradient(180deg,#c39463, #d7a766, #e9ba6c, #f7cf7c, #fde6a5, #fffbe9,#d7a766,#c39463);
 }
 
 .cell:active {
-  background: radial-gradient(
-    circle,
-    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
-    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
-    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
-    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
-  );
+  background: #fde6a5;
+  background: radial-gradient(circle,#c39463, #d7a766, #e9ba6c, #f7cf7c, #fde6a5, #fffbe9,#d7a766,#c39463);
 }
 
 .cell[data-active="1"] {
-  background: radial-gradient(
-    circle,
-    rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
-    rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
-    rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
-    rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
-  );
+  background: #fde6a5;
+  background: radial-gradient(circle,#c39463, #d7a766, #e9ba6c, #f7cf7c, #fde6a5, #fffbe9,#d7a766,#c39463);
 }
 
 .cell[data-exploded="1"] {
@@ -68,29 +46,19 @@
   background: rgb(227, 227, 227);
   background: linear-gradient(
     0deg,
-    rgba(245, 245, 245, 1) 0%,   /* Bright highlight */
-    rgba(200, 200, 200, 1) 15%,  /* Slightly darker */
-    rgba(255, 255, 255, 1) 30%,  /* Reflective white streak */
-    rgba(190, 190, 190, 1) 50%,  /* Darker silver */
-    rgba(245, 245, 245, 1) 70%,  /* Bright again */
-    rgba(227, 227, 227, 1) 100%  /* Base silver */
+    rgba(210, 210, 210, 1) 0%,   
+    rgba(220, 220, 220, 1) 50%,  
+    rgba(255, 255, 255, 1) 100%  
   );
-
 
   color: blue;
 }
 
 .cell[data-flag="1"] {
-  background: rgb(212, 175, 55);
+  background: #c39463;
   background: 
     url('./flag.svg') center/100% no-repeat,
-    linear-gradient(
-      0deg,
-      rgba(212, 175, 55, 1) 0%,   /* Metallic Gold */
-      rgba(204, 153, 51, 1) 35%,  /* Deep Gold */
-      rgba(255, 215, 0, 1) 65%,   /* Bright Gold */
-      rgba(212, 175, 55, 1) 100%  /* Metallic Gold */
-    );
+    linear-gradient(0deg, #96745d, #ad8460, #c39463, #d7a766, #e9ba6c, #f7cf7c, #fde6a5, #fffbe9);
 }
 
 .game-message {
