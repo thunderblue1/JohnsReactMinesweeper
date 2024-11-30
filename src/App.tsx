@@ -2,6 +2,7 @@ import { GameBoard } from './components/GameBoard'
 import './App.css'
 import { useReducer, useState } from 'react'
 import NavBar from './components/NavBar'
+import { generateGameId } from './BusinessLogic'
 
 export type GameLevel = "EASY"|"MODERATE"|"HARD"
 
@@ -22,15 +23,8 @@ function App() {
         setGameLevel("HARD");
         break;
     }
-    // console.log(`Ending Game ID:${gameId}`)
-    if(!crypto.randomUUID) {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = (Math.random() * 16) | 0,
-            v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-    }
-    return crypto.randomUUID(); 
+
+    return generateGameId()
   }
 
   return (
