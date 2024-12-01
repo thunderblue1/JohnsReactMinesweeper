@@ -21,45 +21,53 @@ export type Board = Cell[];
 export function setupBoard({rows, cols, difficulty}:GameBoardProps):Board {
     let newBoard: Board = [];
     for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
+      for (let j = 0; j < cols; j++) {
         const newCell = {
             row: i,
             col: j,
             id: `${i},${j}`,
             liveNeighbors: 0,
-            isMine: Math.random() < difficulty / 100 ? true : false,
+            isMine: false,
             isFlagged: false,
             isExploded: false,
             isShown: false,
             isActive: false
         };
         newBoard.push(newCell);
-        }
+      }
     }
+    let mineCount:number = Math.floor((rows*cols)*(difficulty/100))
+    while(mineCount>0) {
+      const randomMine = Math.floor((cols*rows)*Math.random())
+      if(newBoard[randomMine].isMine) continue
+      newBoard[randomMine] = {...newBoard[randomMine],isMine:true}
+      mineCount--
+    }
+
     newBoard = newBoard.map((cell) => {
         if (!cell.isMine) {
-        let count = 0;
-        for (let i = -1; i < 2; i++) {
-            for (let j = -1; j < 2; j++) {
-            if (
-                cell.row + i >= 0 &&
-                cell.col + j >= 0 &&
-                cell.row + i < rows &&
-                cell.col + j < cols
-            ) {
-                let checked = newBoard.filter((c) => {
-                if (c.id === `${cell.row + i},${cell.col + j}`) {
-                    return true;
+          let count = 0;
+          for (let i = -1; i < 2; i++) {
+              for (let j = -1; j < 2; j++) {
+                if (
+                    cell.row + i >= 0 &&
+                    cell.col + j >= 0 &&
+                    cell.row + i < rows &&
+                    cell.col + j < cols
+                ) {
+                    let checked = newBoard.filter((c) => {
+                      if (c.id === `${cell.row + i},${cell.col + j}`) {
+                          return true;
+                      }
+                      return false;
+                    })[0];
+                    if (checked.isMine) {
+                      count++;
+                    }
                 }
-                return false;
-                })[0];
-                if (checked.isMine) {
-                count++;
-                }
-            }
-            }
-        }
-        return { ...cell, liveNeighbors: count };
+              }
+          }
+          return { ...cell, liveNeighbors: count };
         }
         return { ...cell, liveNeighbors: 9 };
     });
@@ -77,7 +85,7 @@ export function visitCell(id: string, rows: number,cols: number, passedBoard:Boa
     return floodFill(id,rows,cols,passedBoard);
 }
 
-function floodFill(id: string,rows:number,cols:number, passedBoard:Board):Board {
+export function floodFill(id: string,rows:number,cols:number, passedBoard:Board):Board {
     const visited = passedBoard.reduce((endValue, currentValue) => {
       if (currentValue.id === id) {
         return currentValue;
@@ -115,7 +123,7 @@ function floodFill(id: string,rows:number,cols:number, passedBoard:Board):Board 
     return myBoard
 }
 
-function boardExploded(passedBoard:Board):Board {
+export function boardExploded(passedBoard:Board):Board {
     const myBoard = passedBoard.map((cell) => {
         if (cell.isMine) {
         const newCell: Cell = { ...cell, isExploded: true, isFlagged: false };
@@ -193,4 +201,19 @@ export function visitAllCells(neighborsIds:string[],rows:number, cols:number, bo
     }
   })
   return myBoard
+}
+
+export function checkIfAllMines(board:Board):boolean {
+  let remaining = board
+  .filter((cell) => {
+    return !cell.isShown;
+  })
+  .map((cell) => cell.isMine);
+
+  return remaining.reduce((finalResult, current) => {
+    if (!current) {
+      finalResult = false;
+    }
+    return finalResult;
+  }, true);
 }

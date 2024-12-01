@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Tile } from "./Tile";
 import "./GameBoard.css";
-import { Board, visitCell, GameBoardProps, setupBoard, toggleFlag, getNeighborsIds, getNumberOfNeighborFlags, visitAllCells, removeAllActive, addNeighborsActive } from "../BusinessLogic";
+import { Board, visitCell, GameBoardProps, setupBoard, toggleFlag, getNeighborsIds, getNumberOfNeighborFlags, visitAllCells, removeAllActive, addNeighborsActive, checkIfAllMines } from "../BusinessLogic";
 
 export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   const [board, setBoard] = useState<Board>([]);
@@ -19,6 +19,8 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
       return setupBoard({rows,cols,difficulty})
     });
 
+    //Add event listener outside of the board to restore
+    //left and both mousedown refs in case of mouseup outside of board
     const outsideOnMouseUp = (e:MouseEvent)=>{
       const boardElement = document.getElementById("board");
       if (boardElement && !boardElement.contains(e.target as Node)) {
@@ -42,17 +44,10 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   }, [board]);
 
   function checkGameWin() {
-    let remainingIsMine = board
-      .filter((cell) => {
-        return !cell.isShown;
-      })
-      .map((cell) => cell.isMine);
-    let win = remainingIsMine.reduce((finalResult, current) => {
-      if (!current) {
-        finalResult = false;
-      }
-      return finalResult;
-    }, true);
+    //If all that is remaining is mines then
+    //flag remaining tiles and set game won state
+    //so that winning message will be displayed
+    let win = checkIfAllMines(board)
     if (win === true) {
       setBoard((previousBoard)=>{
         return previousBoard.map((cell)=>{
@@ -68,6 +63,7 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   }
 
   function checkGameLost() {
+    //If there are bombs and one exploded then the game is lost
     const bombs = board.filter(cell=>cell.isMine)
     if(bombs?.length>0&&bombs[0].isExploded) {
       setGameLost(true);
@@ -78,10 +74,12 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
     e.preventDefault();
     const flag = e.currentTarget.getAttribute("data-flag")!;
     if (gameLost || gameWon) return; 
+    //If it is flagged then toggle the flag on left click
     if (flag === "1") {
       const updated = toggleFlag(id,board)
       setBoard(updated);
     } else {
+      //If not flagged then visit the cell and floodfill if blank
       const newBoard = visitCell(id,rows,cols, board);
       setBoard(newBoard);
     }
@@ -90,6 +88,7 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   function handleRightClick(e:React.MouseEvent, id: string) {
     e.preventDefault();
     if (gameLost || gameWon) return
+    //Toggle flag on right click
     if(leftRef.current.valueOf()===false) {
       const newBoard = toggleFlag(id,board)
       setBoard(newBoard);
@@ -99,11 +98,16 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   function myMouseDown(e:React.MouseEvent) {
     e.preventDefault();
     if(e.button===0) {
+      //Keep track of left mousedown for multiclick functionality
       leftRef.current = true
-    } else if(leftRef.current===true) {    
+    } else if(leftRef.current===true) {
+      //Keep track of the fact that both left and right mousedown
+      //has occured for multiclick on mouseup
       bothRef.current=true;
       const myTarget = e.target as HTMLElement
       const id = myTarget.dataset.id!
+      //Add depressed class to neighbors of target while both buttons
+      //are in mousedown
       const neighborsIds:string[] = getNeighborsIds(id,rows,cols);
       neighborsIdRef.current = neighborsIds
       setBoard(addNeighborsActive(neighborsIds,board))
@@ -113,15 +117,19 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
 
   function myMouseUp(e:React.MouseEvent) {
     if(e.button===0) {
+      //Restore ref for the left mousedown on left mouseup
       leftRef.current = false
     } else if(bothRef.current===true&&!gameLost&&!gameWon) {
       const myTarget = e.target as HTMLElement
       const id = myTarget.dataset.id!
+      //If mouseup target was the same as mousedown target then
+      //multi click neighbor tiles
       if(id===mouseDownIdRef.current) {
         const numberOfNeighborFlags = getNumberOfNeighborFlags(neighborsIdRef.current, board)
         const clickedCell = board.find(cell=>{
           return cell.id===id
         })
+        //Only multi click if the number flags matches number on tile
         if(numberOfNeighborFlags===clickedCell?.liveNeighbors) {
           setBoard(visitAllCells(neighborsIdRef.current,rows,cols,board))
           
