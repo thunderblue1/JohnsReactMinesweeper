@@ -2,6 +2,7 @@ export type GameBoardProps = {
   rows: number;
   cols: number;
   difficulty: number;
+  testBoard?: Board;
 };
 
 export type Cell = {
@@ -179,7 +180,7 @@ export function getNumberOfNeighborFlags(neighborsIds:string[], board:Board):num
 
 export function addNeighborsActive(neighborsIds:string[], board:Board):Board {
   const myBoard = board.map(cell=>{
-    if(neighborsIds.includes(cell.id)) return {...cell,isActive:true}
+    if(neighborsIds.includes(cell.id)&&!cell.isShown&&!cell.isFlagged) return {...cell,isActive:true}
     return cell;
   })
   return myBoard

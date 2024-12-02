@@ -30,6 +30,7 @@ export function Tile({
       data-exploded={isExploded ? 1 : 0}
       data-revealed={isShown ? 1 : 0}
       data-active={isActive?1:0}
+      data-testid="cell"
     >
       {isShown && liveNeighbors > 0 ? liveNeighbors : ""}
     </div>

@@ -3,7 +3,7 @@ import { Tile } from "./Tile";
 import "./GameBoard.css";
 import { Board, visitCell, GameBoardProps, setupBoard, toggleFlag, getNeighborsIds, getNumberOfNeighborFlags, visitAllCells, removeAllActive, addNeighborsActive, checkIfAllMines } from "../BusinessLogic";
 
-export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
+export function GameBoard({ rows, cols, difficulty, testBoard }: GameBoardProps) {
   const [board, setBoard] = useState<Board>([]);
   const boardRef = useRef<Board>()
   boardRef.current = board;
@@ -15,9 +15,17 @@ export function GameBoard({ rows, cols, difficulty }: GameBoardProps) {
   const bothRef = useRef(false);
 
   useEffect(() => {
-    setBoard(()=>{
-      return setupBoard({rows,cols,difficulty})
-    });
+    if(testBoard) {
+      console.log("Test Game Launched")
+      setBoard(()=>{
+        return testBoard
+      });
+    } else {
+      console.log("Real Game Launched")
+      setBoard(()=>{
+        return setupBoard({rows,cols,difficulty})
+      });
+    }
 
     //Add event listener outside of the board to restore
     //left and both mousedown refs in case of mouseup outside of board
