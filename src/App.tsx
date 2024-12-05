@@ -32,7 +32,7 @@ function App() {
       <NavBar dispatch={dispatch}/>
       <div className='flex'>
         <h1>John Keen Introduces</h1>
-        <h1>React Minesweeper</h1>
+        <h1>React Minesweeper Clone</h1>
 
 
         {gameLevel==="EASY"&&<GameBoard key={`EASY-${gameId}`} rows={10} cols={10} difficulty={5}/>}
